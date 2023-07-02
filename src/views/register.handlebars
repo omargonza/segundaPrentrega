@@ -1,0 +1,33 @@
+<form action="/products" method="POST">
+
+  <label for="first_name">Nombres:</label>
+  <input
+    type="text"
+    id="first_name"
+    name="first_name"
+    required
+    maxlength="100"
+  />
+
+  <label for="last_name">Apellido:</label>
+  <input type="text" id="last_name" name="last_name" required maxlength="100" />
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required maxlength="100" />
+
+  <label for="age">Edad:</label>
+  <input type="number" id="age" name="age" required />
+
+  <label for="password">Password:</label>
+  <input
+    type="password"
+    id="password"
+    name="password"
+    required
+    maxlength="100"
+  />
+
+   <button type="submit" onclick="products">Registrarse</button>
+</form>
+<a href="login">Ya tienes una cuenta</a>
+

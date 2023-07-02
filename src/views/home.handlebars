@@ -1,0 +1,18 @@
+<div>
+  <h1>Nuestros Productos</h1>
+  {{#each mapAllproducts}}
+     <div class="col-md-4">
+          <div class="card mb-4">
+            <img src="{{thumbnails.[0]}}" class="card-img-top" alt="{{title}}">
+            <div class="card-body">
+              <h5 class="card-title">{{title}}</h5>
+              <p class="card-text">{{description}}</p>
+              <p class="card-text">${{price}}</p>
+              <p class="card-text">Stock: {{stock}}</p>
+              <p class="card-text">Status: {{status}}</p>
+              <a href="/products/{{_id}}" class="btn btn-primary">Ver detalles</a>
+            </div>
+          </div>
+        </div>
+  {{/each}}
+</div>

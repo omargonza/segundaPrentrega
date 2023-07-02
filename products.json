@@ -1,0 +1,115 @@
+ [{
+            "id": 1,
+            "title": "Roles Datejust",
+            "description": "Fecha exacta",
+            "code": "R1",
+            "price": 101,
+            "status": true,
+            "stock": 10,
+            "thumbnail": "https://cdn4.chrono24.com/images/topmodels/2846-alz5vjoi11mxlc54imf27mlj-Original.png?auto=compress&amp;h=305",
+            "category": "rolex"
+        },
+        {
+            "id": 2,
+            "title": "OMEGA Speedmaster",
+            "description":"Velocidad",
+            "code":"R2",            
+            "price": 104,
+            "status":true,
+            "stock":5,
+            "thumbnail": "https://cdn4.chrono24.com/images/topmodels/2875-7wlcl6ogfoc0qxg22ox6up9m-Original.png?auto=compress&amp;h=305",
+            "category": "omega"
+        },
+        {
+            "id": 3,
+            "title": "AUDEMARS PIGUET",
+            "description":"Exclusividad y prestigio",
+            "code":"R3",
+            "price": 75,
+            "status":true,
+            "stock":2,
+            "thumbnail": "https://cdn4.chrono24.com/images/topmodels/1177-wugpfdlkkz5ie2od4y1w8rlm-Original.png?auto=compress&amp;h=305",
+            "category": "audemars"
+        },
+        {
+            "id": 4,
+            "title": "HUBLOT Big Bang",
+            "description":"Caja de titanio o ceramica. Corona giratoria.",
+            "code":"R4",
+            "price": 99,
+            "status":true,
+            "stock":2,
+            "thumbnail": "https://cdn4.chrono24.com/images/topmodels/1065-ae2seivfjwbgqxgobd7rimxu-Original.png?auto=compress&amp;h=305",
+            "category": "hublot"
+        },
+        {
+            "id": 5,
+            "title": "ROLEX Day-Date",
+            "description":"Reloj para toda la vida.",
+            "code":"R5",
+            "price": 105,
+            "status":true,
+            "stock":3,
+            "thumbnail": "https://cdn4.chrono24.com/images/topmodels/48-coj40rpfx8fwxs9h0nl1l5z5-Original.png?auto=compress&amp;h=305",
+            "category": "rolexDay"
+
+        },
+        {
+            "id": 6,
+            "title": "TAG HEUER Carrera Calibre",
+            "description":"Sensación elegante y deportiva a la vez.",
+            "code":"R6",
+            "price": 85,
+            "status":true,
+            "stock":3,
+            "thumbnail": "https://cdn4.chrono24.com/images/topmodels/1023-knl4kmo66jmse324vzq1rit9-Original.png?auto=compress&amp;h=305",
+            "category": "tag"
+
+        },
+        {
+           
+            "id": 7,
+            "title": "Roles Datejust",
+            "description": "Fecha exacta",
+            "code": "R7",
+            "price": 101,
+            "status": true,
+            "stock": 2,
+            "thumbnail": "https://cdn4.chrono24.com/images/topmodels/2846-alz5vjoi11mxlc54imf27mlj-Original.png?auto=compress&amp;h=305",
+            "category": "rolex"
+        },
+        {
+            "id": 8,
+            "title": "OMEGA Speedmaster",
+            "description":"Velocidad",
+            "code":"R8",            
+            "price": 104,
+            "status":true,
+            "stock":5,
+            "thumbnail": "https://cdn4.chrono24.com/images/topmodels/2875-7wlcl6ogfoc0qxg22ox6up9m-Original.png?auto=compress&amp;h=305",
+            "category": "omega"
+        },
+        {
+            "id": 9,
+            "title": "AUDEMARS PIGUET",
+            "description":"Exclusividad y prestigio",
+            "code":"R9",
+            "price": 75,
+            "status":true,
+            "stock":2,
+            "thumbnail": "https://cdn4.chrono24.com/images/topmodels/1177-wugpfdlkkz5ie2od4y1w8rlm-Original.png?auto=compress&amp;h=305",
+            "category": "audemars"
+        },
+        {
+            "id": 10,
+            "title": "HUBLOT Big Bang",
+            "description":"Caja de titanio o ceramica. Corona giratoria.",
+            "code":"R10",
+            "price": 99,
+            "status":true,
+            "stock":2,
+            "thumbnail": "https://cdn4.chrono24.com/images/topmodels/1065-ae2seivfjwbgqxgobd7rimxu-Original.png?auto=compress&amp;h=305",
+            "category": "hublot"
+        }
+       
+    ]

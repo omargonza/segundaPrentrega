@@ -27,7 +27,7 @@ import MongoStore from "connect-mongo";
 
 
 const app = express();
-const port = 8082;
+const port = 8081;
 
 const productManagerMongo = new ProductManagerMongo();
 //const msgsManagerMongo = new msgsManagerMongo();

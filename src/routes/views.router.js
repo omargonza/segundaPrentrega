@@ -14,10 +14,6 @@ export const viewsRouter = Router();
 viewsRouter.use(express.json());
 viewsRouter.use(express.urlencoded({ extended: true }));
 
-viewsRouter.get("/", async (req, res) => {
-  res.render("login");
-});
-
 
 viewsRouter.get("/products", async (req, res) => {
   try {
@@ -159,57 +155,38 @@ viewsRouter.get("/login", async (req, res) => {
   res.render("login");
 });
 
-viewsRouter.get("/logout", async (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      return res.json({ status: "Logout error", body: err });
-    }
-    res.redirect("/login");
-  });
-});
-
 viewsRouter.get("/register", async (req, res) => {
   res.render("register");
 });
 
 viewsRouter.get("/profile", checkUser, async (req, res) => {
-  res.render("profile");
+  console.log(req.session);
+  res.render('profile', { data: JSON.stringify(req.session) });;
 });
-
-viewsRouter.get("/realtimeproducts", async (req, res) => {
-  res.render("realTimeProducts", {});
-});
-
-////////////////////////////////
-
-
-
-
+;
 
 
 viewsRouter.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      return res.render('error-page', { msg: 'no se pudo cerrar la session' });
+      return res.render('error', { msg: 'no se pudo cerrar la session' });
     }
     return res.redirect('/login');
   });
 });
 
-viewsRouter.get('/login', (req, res) => {
-  res.render('login');
-});
 
-viewsRouter.get('/register', (req, res) => {
-  res.render('register');
-});
-
-viewsRouter.get('/profile', checkUser, (req, res) => {
-  res.render('profile');
-});
 
 viewsRouter.get('/solo-para-admin', checkAdmin, (req, res) => {
   res.send('ESTO SOLO LO PUEDE VER EL ADMIN');
 });
 
+viewsRouter.get('/', (req, res) => {
+  res.render('login');
+});
 export default viewsRouter;
+
+////////////////////////////////
+
+
+

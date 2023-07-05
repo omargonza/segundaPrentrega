@@ -8,8 +8,8 @@ export function iniPassport() {
     'github',
     new GitHubStrategy(
       {
-        clientID: 'Iv1.14bcc7cf2abcc422',
-        clientSecret: '66ecb53e88845fc9d2612de2347becf167d746e9',
+        clientID: '',
+        clientSecret: '',
         callbackURL: 'http://localhost:8081/api/sessions/githubcallback',
       },
       async (accesToken, _, profile, done) => {

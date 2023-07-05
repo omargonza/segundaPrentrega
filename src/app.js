@@ -9,6 +9,7 @@ import { ProductManagerMongo } from "./dao/services/productManagerMongo.js";
 //import { msgsManagerMongo } from "./dao/services/msgsManager.js";
 //import { MsgModel } from "./dao/models/msgs.model.js";
 import  viewsRouter  from "./routes/views.router.js";
+import { sessionsRouter } from './routes/sessions.router.js';
 import  {usersRouter}  from "./routes/users.router.js";
 import  {cartsRouter}  from "./routes/carts.router.js";
 import { msgsRouter } from "./routes/messages.router.js";
@@ -19,6 +20,8 @@ import { Server } from "socket.io";
 import { MONGODB_URI } from "./config.js";
 import  session  from "express-session";
 import MongoStore from "connect-mongo";
+import passport from 'passport';
+import { iniPassport } from './config/passport.config.js';
 //import {connectToDatabase} from "./utils.js";
 
 
@@ -27,7 +30,7 @@ import MongoStore from "connect-mongo";
 
 
 const app = express();
-const port = 8081;
+const port = 8001;
 
 const productManagerMongo = new ProductManagerMongo();
 //const msgsManagerMongo = new msgsManagerMongo();
@@ -58,6 +61,11 @@ app.use(
   })
 );
 
+//TODO LO DE PASSPORT
+iniPassport();
+app.use(passport.initialize());
+app.use(passport.session());
+//FIN TODO LO DE PASSPORT
 
 
 app.engine("handlebars", handlebars.engine());
@@ -88,6 +96,7 @@ socketServer.on("connection", async (socket) => {
     socketServer.sockets.emit("all_msgs", msgs);
   });
 });
+app.use('/api/sessions', sessionsRouter);
 app.use("/",viewsRouter);
 app.use("/api/sessions", loginRouter);
 app.use("/api/products", productManagerRouter);

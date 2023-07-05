@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true, max: 100 },
     age: { type: Number, required: true, max: 150, min: 1 },
     password: { type: String, required: true, max: 100 },
-    
+    role:{ type: String, enum: ["admin", "user"], default: "user"}
   });
 
 export const userModel = mongoose.model(userCollection, userSchema);

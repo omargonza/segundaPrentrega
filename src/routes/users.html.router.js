@@ -1,5 +1,5 @@
 import express from 'express';
-import { userModel } from '../dao/models/users.model';
+import { userModel } from '../dao/models/users.model.js';
 
 export const usersHtmlRouter = express.Router();
 usersHtmlRouter.get('/', async (req, res) => {
@@ -9,8 +9,8 @@ usersHtmlRouter.get('/', async (req, res) => {
   let usuarios = users.docs.map((user) => {
     return {
       id: user._id.toString(),
-      firstName: user.firstName,
-      lastName: user.lastName,
+      first_name: user.first_name,
+      last_name: user.last_name,
       email: user.email,
     };
   });

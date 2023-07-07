@@ -80,7 +80,7 @@ import fetch from "node-fetch";
 
 const LocalStrategy = local.Strategy;
 
-export function initializePassport() {
+export function iniPassport() {
   passport.use(
     "login",
     new LocalStrategy(

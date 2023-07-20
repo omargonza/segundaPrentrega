@@ -8,7 +8,8 @@ import { productManagerRouter } from "./routes/products.router.js";
 import { ProductManagerMongo } from "./dao/services/productManagerMongo.js";
 //import { msgsManagerMongo } from "./dao/services/msgsManager.js";
 //import { MsgModel } from "./dao/models/msgs.model.js";
-import  viewsRouter  from "./routes/views.router.js";
+import {indexRouter  } from "./routes/index.router.js"
+import  {viewsRouter}  from "./routes/views.router.js";
 import { sessionsRouter } from './routes/sessions.router.js';
 import  {usersRouter}  from "./routes/users.router.js";
 import  {cartsRouter}  from "./routes/carts.router.js";
@@ -30,7 +31,7 @@ import { iniPassport } from './config/passport.config.js';
 
 
 const app = express();
-const port = 8001;
+const port = 8081;
 
 const productManagerMongo = new ProductManagerMongo();
 //const msgsManagerMongo = new msgsManagerMongo();
@@ -96,6 +97,7 @@ socketServer.on("connection", async (socket) => {
     socketServer.sockets.emit("all_msgs", msgs);
   });
 });
+app.use('/', indexRouter);
 app.use('/api/sessions', sessionsRouter);
 app.use("/",viewsRouter);
 app.use("/api/sessions", loginRouter);

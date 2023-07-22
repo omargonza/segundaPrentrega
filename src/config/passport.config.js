@@ -39,7 +39,7 @@ export function iniPassport() {
       { passReqToCallback: true, usernameField: "email" },
       async (req, username, password, done) => {
         try {
-          const { email, first_name, last_name } = req.body;
+          const { email, first_name, last_name, age } = req.body;
           let user = await userModel.findOne({ email: username });
           if (user) {
             return done(null, false, { message: "User already exists" });
@@ -49,6 +49,7 @@ export function iniPassport() {
             email,
             first_name,
             last_name,
+            age,
             isAdmin: false,
             password: createHash(password),
           };

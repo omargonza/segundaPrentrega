@@ -6,4 +6,4 @@ const schema = new Schema({
 });
 
 
-export const MsgModel = model("messages", schema);
+export const  MessageModel = model("messages", schema);

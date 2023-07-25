@@ -10,7 +10,8 @@ const userSchema = new mongoose.Schema({
   age: { type: Number, required: true, max: 150, min: 1 },
   password: { type: String, required: true, max: 100 },
   role: { type: String, enum: ["admin", "user"], default: "user"},
-  cartID: { type: mongoose.Schema.Types.ObjectId, ref: "Carts" } // Adding the cartID reference
+  cartID: { type: mongoose.Schema.Types.ObjectId, ref: "Carts" } // referencia a cartID 
 });
 
 export const userModel = mongoose.model(userCollection, userSchema);
+//export default userModel

@@ -2,32 +2,33 @@
 
 import passport from "passport";
 import local from "passport-local";
-import { createHash, isValidPassword } from "../utils.js";
-import { userModel } from "../dao/models/users.model.js";
+import { createHashPassword, checkPassword } from "../utils/bcrypt.js";
+import { userModel } from "../DAO/models/users.model.js";
 import GitHubStrategy from "passport-github2";
 import fetch from "node-fetch";
 
 const LocalStrategy = local.Strategy;
-
 export function iniPassport() {
   passport.use(
     "login",
+    //en este modelo de passport, solo se trabaja con usuario y contraseña, es porque es que para adaptarlo a nuestro modelo, indicamos en la siguiente linea que el usernameField va a ser el email del esquima de nuestro modelo de usuarios.
     new LocalStrategy(
       { usernameField: "email" },
       async (username, password, done) => {
         try {
           const user = await userModel.findOne({ email: username });
-
+          
           if (!user) {
-            return done(null, false, { message: "User not found" });
+            console.log("The username: " + username + " was not found");
+            return done(null, false);
           }
-          if (!isValidPassword(password, user.password)) {
-            return done(null, false, { message: "Wrong password" });
+          if (!checkPassword(password, user.password)) {
+            console.log("Invalid password, check and try again");
+            return done(null, false);
           }
-
           return done(null, user);
-        } catch (error) {
-          return done(error);
+        } catch (err) {
+          return done(err);
         }
       }
     )
@@ -35,34 +36,42 @@ export function iniPassport() {
 
   passport.use(
     "register",
+    //en este modelo de passport, solo se trabaja con usuario y contraseña, es porque es que para adaptarlo a nuestro modelo, indicamos en la siguiente linea que el usernameField va a ser el email del esquima de nuestro modelo de usuarios.
     new LocalStrategy(
-      { passReqToCallback: true, usernameField: "email" },
+      {
+        passReqToCallback: true,
+        usernameField: "email",
+      },
       async (req, username, password, done) => {
         try {
-          const { email, first_name, last_name, age } = req.body;
+          const infoOfBody = req.body;
           let user = await userModel.findOne({ email: username });
+          
           if (user) {
-            return done(null, false, { message: "User already exists" });
+            console.log("The user already exist");
+            return done(null, false);
           }
 
-          const newUser = {
-            email,
-            first_name,
-            last_name,
-            age,
-            isAdmin: false,
-            password: createHash(password),
-          };
+          let newUser = await userModel.create({
+            first_name: infoOfBody.first_name,
+            last_name: infoOfBody.last_name,
+            age: infoOfBody.age,
+            role: infoOfBody.role,
+            email: infoOfBody.email,
+            cartID: infoOfBody.cart,
+            password: createHashPassword(password),
+          });
+          console.log("User registration succesful");
+          return done(null, newUser);
 
-          let userCreated = await userModel.create(newUser);
-          return done(null, userCreated, { message: "User created" });
-        } catch (error) {
-          return done(error, { message: "Error creating user" });
+        } catch (e) {
+          console.log("Error in the register process");
+          console.log(e);
+          return done(e);
         }
       }
     )
   );
-
   passport.use(
     "github",
     new GitHubStrategy(
@@ -96,14 +105,15 @@ export function iniPassport() {
               email: profile.email,
               first_name: profile._json.name || profile._json.login || "noname",
               last_name: "externalAuth",
+              age:1,
               isAdmin: false,
               password: "nopass",
             };
             let userCreated = await userModel.create(newUser);
-            console.log("User Registration succesful");
+            console.log("Usuario registrado con exito");
             return done(null, userCreated);
           } else {
-            console.log("User already exists");
+            console.log("El usuario ya existe");
             return done(null, user);
           }
         } catch (e) {

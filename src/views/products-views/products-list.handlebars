@@ -1,0 +1,51 @@
+<div>
+  {{#if user.first_name}}
+    <p>Bienvenido, {{user.first_name}} {{user.last_name}}!</p>
+    <p>Email: {{user.email}}</p>
+
+    {{#if user.admin}}
+      <p>Rol: Admin</p>
+    {{else}}
+      <p>Rol: Usuario</p>
+    {{/if}}
+
+    <a href="/users/logout">Cerrar sesión</a>
+  {{/if}}
+</div>
+<hr />
+
+
+<div>
+    <h1>Listado de los productos</h1>
+
+  {{#each products}}
+    <p>Nombre del producto: {{this.title}}</p>
+    <p>Descripcion: {{this.description}}</p>
+    <p>Categoria: {{this.category}}</p>
+    <p>Precio: {{this.price}}</p>
+    <p>Stock actual: {{this.stock}}</p>
+
+  <form action="http://localhost:8081/api/carts/64964692298beae4cf6b22b1/product/{{this.id}}" method="POST">
+      <button type="submit">Agregar al carrito</button>
+    </form>
+    <hr />
+  {{/each}}
+</div>
+  <hr />
+<div>
+  Contador del primer producto mostrado: {{pagingCounter}}
+  <br>
+  Pagina actual: {{page}}
+  <br>
+  Numero de paginas: {{totalPages}}
+
+  <hr />
+
+  {{#if hasPrevPage}}
+    <a style='text-decoration: none' href='http://localhost:8081/products/?page={{prevPage}}'> ⬅️ </a>
+  {{/if}}
+  {{page}}
+  {{#if hasNextPage}}
+    <a style='text-decoration: none' href='http://localhost:8081/products/?page={{nextPage}}'> ➡️</a>
+  {{/if}}
+</div>

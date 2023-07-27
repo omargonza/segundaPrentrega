@@ -176,14 +176,6 @@ app.use("/api/carts", routerApiCarts);
 app.use("/api/sessions", routerApiSessions);
 
 //importando las rutas de los views
-import { routerProducts } from "./routes/products/products-routes.js";
-import { routerCarts } from "./routes/carts/carts-routes.js";
-import { routerUsers } from "./routes/users/users-routes.js";
-
-//endpoint de views
-app.use("/products", routerProducts);
-app.use("/carts", routerCarts);
-app.use("/users", routerUsers);
 
 //importando las rutas de los views en realtime (servidor socket.io)
 import { routerRealTimeProducts } from "./routes/realtimes/products-realtime-routes.js";
@@ -192,6 +184,16 @@ import { routerViewChat } from "./routes/realtimes/chat-view-router.js";
 //endpoint de views en real time (servidor socket.io)
 app.use("/realtimeproducts", routerRealTimeProducts);
 app.use("/chatsocket", routerViewChat);
+
+//importando las rutas de los views
+import { routerProducts } from "./routes/products/products-routes.js";
+import { routerCarts } from "./routes/carts/carts-routes.js";
+import { routerUsers } from "./routes/users/users-routes.js";
+
+//endpoint de views
+app.use("/products", routerProducts);
+app.use("/carts", routerCarts);
+app.use("/users", routerUsers);
 
 //cuando la ruta no existe
 app.get("*", (req, res) => {

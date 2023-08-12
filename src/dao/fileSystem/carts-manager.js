@@ -5,10 +5,10 @@ import { __dirname } from "../utils/dirname.js";
 class CartManager {
   constructor() {
     this.carts = [];
-    this.cartsFilePath = path.resolve(__dirname, "../DAO/dataBase/carts.json");
+    this.cartsFilePath = path.resolve(__dirname, "../DAO/fileSystem/dataBase/carts.json");
     this.productsFilePath = path.resolve(
       __dirname,
-      "../DAO/dataBase/products.json"
+      "../DAO/fileSystem/dataBase/products.json"
     );
 
     //comprobando si ya existe la base de datos o no existe

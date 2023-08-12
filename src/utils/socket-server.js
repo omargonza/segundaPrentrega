@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 import { MessageModel } from '../DAO/models/messages.model.js';
-import { productManager } from "../DAO/products-manager.js";
+import { productManager } from "../DAO/fileSystem/products-manager.js";
 
 export function connectSocket(httpServer) {
   const socketServer = new Server(httpServer);

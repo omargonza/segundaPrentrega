@@ -1,6 +1,7 @@
 //importando las funciones de la clase product manager
 import { cartsModel } from "../../DAO/models/carts.model.js";
 import { productsModel } from "../../DAO/models/products.model.js";
+import { ticketsModel } from "../../DAO/models/tickets.model.js";
 
 class CartApiService {
   async getCarts(limit, page, query, sort) {
@@ -107,6 +108,62 @@ class CartApiService {
   async deleteCart(_id) {
     const deleted = await cartsModel.deleteOne({ _id: _id });
     return deleted;
+  }
+
+
+  async purchaseCart(cartId) {
+    try {
+      const cart = await cartsModel.findOne({ _id: cartId });
+
+      if (!cart) {
+        throw new Error('Carrito no encontrado');
+      }
+
+      let hasInsufficientStock = false;
+
+      for (const cartProduct of cart.products) {
+        const product = await productsModel.findById(cartProduct.product);
+
+        if (!product) {
+          throw new Error('Producto no encontrado');
+        }
+
+        if (cartProduct.quantity > product.stock) {
+          hasInsufficientStock = true;
+          break; // Detener la iteración si hay stock insuficiente
+        }
+      }
+
+      if (hasInsufficientStock) {
+        throw new Error('Algunos productos no tienen suficiente stock');
+      }
+
+      // Si todos los productos tienen suficiente stock, realizar la compra
+      for (const cartProduct of cart.products) {
+        const product = await productsModel.findById(cartProduct.product);
+        product.stock -= cartProduct.quantity;
+        await product.save();
+      }
+
+      // Crear una orden de compra (Ticket) para la compra realizada
+      const newTicket = new ticketsModel({
+        code: 'genera_codigo_unico', // Generar un código único para la orden de compra
+        purchase_datetime: new Date(),
+        amount: cart.totalAmount(), 
+        purchaser: cart.purchaser
+      });
+
+      await newTicket.save();
+
+      // Vaciar el carrito después de la compra
+      cart.products = [];
+      await cart.save();
+
+      return { message: 'Compra realizada exitosamente' };
+    } catch (error) {
+      console.error('Error al realizar la compra:', error);
+      throw new Error('Error al procesar la compra');
+    }
   }
 }
 

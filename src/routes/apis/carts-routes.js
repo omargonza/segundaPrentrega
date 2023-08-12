@@ -1,5 +1,6 @@
 import express from "express";
 import { cartsApiController } from "../../controller/apis/carts-api-controller.js";
+import { cartApiService } from "../../services/apis/carts-api-service.js";
 
 export const routerApiCarts = express.Router();
 
@@ -19,3 +20,5 @@ routerApiCarts.delete("/:id_cart/products/:id_product", cartsApiController.remov
 routerApiCarts.delete("/:id_cart", cartsApiController.clearOneCart)
 //eliminar un carrito de compras
 routerApiCarts.delete("/:id", cartsApiController.deleteOneCart)
+//La finalización del proceso de compra.
+routerApiCarts.post("/:cid/purchase",cartApiService.purchaseCart)

@@ -15,6 +15,7 @@ export const entorno = {
   mongoUrl: process.env.MONGODB_URI,
   adminName: process.env.ADMIN_NAME,
   adminPassword: process.env.ADMIN_PASSWORD,
+  persistence: process.env.PERSISTENCIA_,
  // clientId: process.env.CLIENTID,
   //clientSecret: process.env.CLIENTSECRET,
   //callbackUrl: process.env.CALLBACKURL,

@@ -3,7 +3,7 @@
 import { cartApiService } from "../../services/apis/carts-api-service.js";
 
 export const cartsApiController = {
-  getAllCarts: async function (req, res) {
+  getAllCarts: async function (/** @type {{ query: { limit: any; page: any; query: any; sort: any; }; }} */ req, /** @type {{ json: (arg0: { status: string; msg: string; data: any; }) => any; status: (arg0: number) => { (): any; new (): any; json: { (arg0: { status: string; msg: string; data: { error: any; }; }): any; new (): any; }; }; }} */ res) {
     try {
       let { limit, page, query, sort } = req.query;
       const carts = await cartApiService.getCarts(limit, page, query, sort);
@@ -22,7 +22,7 @@ export const cartsApiController = {
     }
   },
 
-  showOneCart: async function (req, res) {
+  showOneCart: async function (/** @type {{ params: { id_cart: any; }; }} */ req, /** @type {{ status: (arg0: number) => { (): any; new (): any; json: { (arg0: { status: string; msg: string; data: (import("mongoose").Document<unknown, {}, { products: any[]; }> & Omit<{ products: any[]; } & { _id: import("mongoose").Types.ObjectId; }, never>) | { error: any; } | null; }): any; new (): any; }; }; }} */ res) {
     try {
       const idCart = req.params.id_cart;
       const cart = await cartApiService.getOneCart(idCart);
@@ -41,7 +41,7 @@ export const cartsApiController = {
     }
   },
 
-  createOneCart: async function (req, res) {
+  createOneCart: async function (/** @type {any} */ req, /** @type {{ status: (arg0: number) => { (): any; new (): any; json: { (arg0: { status: string; msg: string; data: (import("mongoose").Document<unknown, {}, { products: any[]; }> & Omit<{ products: any[]; } & { _id: import("mongoose").Types.ObjectId; }, never>) | { error: any; }; }): any; new (): any; }; }; }} */ res) {
     try {
       await cartApiService.addCart();
       const carts = await cartApiService.getAllCarts();
@@ -60,7 +60,7 @@ export const cartsApiController = {
     }
   },
 
-  addProductToACart: async function (req, res) {
+  addProductToACart: async function (/** @type {{ params: { id_cart: any; id_product: any; }; }} */ req, /** @type {{ status: (arg0: number) => { (): any; new (): any; json: { (arg0: { status: string; msg: string; data: (import("mongoose").Document<unknown, {}, { products: any[]; }> & Omit<{ products: any[]; } & { _id: import("mongoose").Types.ObjectId; }, never>) | { error: any; } | null; }): any; new (): any; }; }; }} */ res) {
     try {
       const idCart = req.params.id_cart;
       const idProduct = req.params.id_product;
@@ -82,7 +82,7 @@ export const cartsApiController = {
     }
   },
 
-  updateProductQuantity: async function (req, res) {
+  updateProductQuantity: async function (/** @type {{ params: { id_cart: any; id_product: any; }; body: { quantity: string; }; }} */ req, /** @type {{ status: (arg0: number) => { (): any; new (): any; json: { (arg0: { status: string; msg: string; data: (import("mongoose").Document<unknown, {}, { products: any[]; }> & Omit<{ products: any[]; } & { _id: import("mongoose").Types.ObjectId; }, never>) | { error: any; } | null; }): any; new (): any; }; }; }} */ res) {
     try {
       const idCart = req.params.id_cart;
       const idProduct = req.params.id_product;
@@ -105,7 +105,7 @@ export const cartsApiController = {
     }
   },
 
-  removeProductFromCart: async function (req, res) {
+  removeProductFromCart: async function (/** @type {{ params: { id_cart: any; id_product: any; }; }} */ req, /** @type {{ status: (arg0: number) => { (): any; new (): any; json: { (arg0: { status: string; msg: string; data: (import("mongoose").Document<unknown, {}, { products: any[]; }> & Omit<{ products: any[]; } & { _id: import("mongoose").Types.ObjectId; }, never>) | { error: any; } | null; }): any; new (): any; }; }; }} */ res) {
     try {
       const idCart = req.params.id_cart;
       const idProduct = req.params.id_product;
@@ -127,7 +127,7 @@ export const cartsApiController = {
     }
   },
 
-  clearOneCart: async function (req, res) {
+  clearOneCart: async function (/** @type {{ params: { id_cart: any; }; }} */ req, /** @type {{ status: (arg0: number) => { (): any; new (): any; json: { (arg0: { status: string; msg: string; data: { cart: import("mongoose").Document<unknown, {}, { products: any[]; }> & Omit<{ products: any[]; } & { _id: import("mongoose").Types.ObjectId; }, never>; } | { error: any; }; }): any; new (): any; }; }; }} */ res) {
     try {
       const id = req.params.id_cart;
       const cart = await cartApiService.clearCart(id);
@@ -146,7 +146,7 @@ export const cartsApiController = {
     }
   },
 
-  deleteOneCart: async function (req, res) {
+  deleteOneCart: async function (/** @type {{ params: { id: any; }; }} */ req, /** @type {{ status: (arg0: number) => { (): any; new (): any; json: { (arg0: { status: string; msg: string; data: {} | { error: any; }; }): any; new (): any; }; }; }} */ res) {
     try {
       const id = req.params.id;
       await cartApiService.deleteCart(id);
@@ -164,4 +164,16 @@ export const cartsApiController = {
       });
     }
   },
+
+
+  purchaseCart: async function (/** @type {{ params: { cid: any; }; }} */ req, /** @type {any} */ res) {
+    const cartId = req.params.cid;
+
+    try {
+      const result = await cartApiService.purchaseCart(cartId);
+      return result;
+    } catch (error) {
+      throw new Error('Error al realizar la compra: ' + error.message);
+    }
+  }
 };

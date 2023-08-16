@@ -1,7 +1,7 @@
 // @ts-nocheck
 //importando las funciones de la clase product manager
 import { productsModel}  from "../../DAO/models/products.model.js";
-
+import {fakerES} from "@faker-js/faker"; 
 class ProductApiService {
   /**
    * @param {any} limit
@@ -63,6 +63,28 @@ class ProductApiService {
     const deleted = await productsModel.deleteOne({ _id: _id });
     return deleted
   }
+
+  async generateMockData() {
+    try {
+      for (let i = 0; i < 100; i++) {
+        const fakeProduct = {
+          title: fakerES.commerce.productName(),
+          description: faker.lorem.sentences(),
+          category: fakerES.commerce.department(),
+          price: fakerES.commerce.price(),
+          thumbnail: fakerES.image.imageUrl(),
+          code: fakerES.random.alphaNumeric(8),
+          stock: fakerES.random.number({ min: 0, max: 100 }),
+        };
+  
+        await productsModel.create(fakeProduct);
+      }
+      console.log("Mock data generated successfully!");
+    } catch (error) {
+      console.error("Error generating mock data:", error);
+    }
+  }
+  
 }
 
 export const productApiService = new ProductApiService();

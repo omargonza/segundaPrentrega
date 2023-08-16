@@ -1,6 +1,7 @@
 //@ts-check
 //importando las funciones de la carpeta services
 import { productApiService } from "../../services/apis/products-api-service.js";
+import {generateMockData} from "../../utils/faker.products.js"
 
 export const productsApiController = {
   getAllProducts: async function (req, res) {
@@ -107,4 +108,30 @@ export const productsApiController = {
       });
     }
   },
+
+  generateMockData: async function (req, res) {
+
+    try {
+      await productApiService.generateMockData;
+
+      return res.status(200).json({
+        
+      status:"Success",
+      msg: "Mock data generado con exito",
+
+      data:[],
+      });
+    }
+
+
+catch (error){
+  return res.status(500).json({
+    status:"Error",
+    msg: "Erro al generar MOck data",
+    data: {error},
+  });
+}
+  }
+
+  
 };

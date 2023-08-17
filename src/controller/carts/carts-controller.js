@@ -8,7 +8,7 @@ export const cartController = {
       const cart = await cartApiService.getOneCart(id);
       const theCart = cart.products.map((prod) => prod.toJSON());
 
-      return res.status(200).render("carts-views/carts-list", {
+      return res.status(200).render("views/carts-views/carts-list", {
         title: "Detalle del carro",
         cart: theCart,
       });

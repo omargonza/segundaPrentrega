@@ -1,10 +1,12 @@
+<!--
+
 <div>
   {{#if user.first_name}}
-    <p>Bienvenido, {{user.first_name}} {{user.last_name}}!</p>
+    <h1>Bienvenido<span> {{user.first_name}} {{user.last_name}}!</span></h1>
     <p>Email: {{user.email}}</p>
 
-    {{#if user.admin}}
-      <p>Rol: Admin</p>
+    {{#if admin}}
+     <p>Rol: Admin</p>  
     {{else}}
       <p>Rol: Usuario</p>
     {{/if}}
@@ -14,20 +16,27 @@
 </div>
 <hr />
 
+  <main>
+<div class="container text-center index_div">
+    <h1>Todos nuestros Productos</h1>
+</div>
 
-<div>
-    <h1>Listado de los productos</h1>
-
-  {{#each products}}
+ {{#each products}}
     <p>Nombre del producto: {{this.title}}</p>
     <p>Descripcion: {{this.description}}</p>
     <p>Categoria: {{this.category}}</p>
     <p>Precio: {{this.price}}</p>
     <p>Stock actual: {{this.stock}}</p>
 
-  <form action="http://localhost:8081/api/carts/64964692298beae4cf6b22b1/product/{{this.id}}" method="POST">
-      <button type="submit">Agregar al carrito</button>
-    </form>
+      <form action="views/carts/{{this._id}}" method="POST">
+                        <div class="input-group group-comprar">
+                            <input type="number" name="cantidad" class="form-control" value="1" min="1"
+                                max={{productos.stock}}>
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-success">Agregar al Carrito</button>
+                            </div>
+                        </div>
+                    </form>
     <hr />
   {{/each}}
 </div>
@@ -42,10 +51,162 @@
   <hr />
 
   {{#if hasPrevPage}}
-    <a style='text-decoration: none' href='http://localhost:8081/products/?page={{prevPage}}'> ⬅️ </a>
+    <a style='text-decoration: none' href='http://localhost:8082/products/?page={{prevPage}}'> ⬅️ </a>
   {{/if}}
   {{page}}
   {{#if hasNextPage}}
-    <a style='text-decoration: none' href='http://localhost:8081/products/?page={{nextPage}}'> ➡️</a>
+    <a style='text-decoration: none' href='http://localhost:8082/products/?page={{nextPage}}'> ➡️</a>
   {{/if}}
 </div>
+</main>
+
+<footer class='border-0 border-top border-dark text-center text-dark'>
+  <div class='container p-4 pb-0'>
+    <section>
+      <a target='_blank' class='btn text-white btn-floating m-1' style='background-color: #3b5998;' href='https://www.facebook.com/gonza.martinez.50115161' role='button'><i class='bi bi-facebook'></i></a>
+      <a target='_blank' class='btn text-white btn-floating m-1' style='background-color: #55acee;' href='https://twitter.com/coderhouse' role='button'><i class='bi bi-twitter'></i></a>
+      <a target='_blank' class='btn text-white btn-floating m-1' style='background-color: #ac2bac;' href='https://www.instagram.com/mart_inezgon/' role='button'><i class='bi bi-instagram'></i></a>
+      <a target='_blank' class='btn text-white btn-floating m-1' style='background-color: #0082ca;' href='https://www.linkedin.com/in/gonzalo-martinez-1b5a69263/' role='button'><i
+          class='bi bi-linkedin'
+        ></i></a>
+      <a target='_blank' class='btn text-white btn-floating m-1' style='background-color: #333333;' href='https://github.com/omargonza' role='button'><i class='bi bi-github'></i></a>
+    </section>
+  </div>
+  <div class='text-center p-3 footerInfo'>
+    <h5>2023 Backend Project in CODERHOUSE using NODE.JS and EXPRESS JS</h5>
+    <h6>by Gonza martinez</h6>
+  </div>
+</footer>
+
+-->
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .welcome-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        h1 span {
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
+
+</html>
+
+
+
+<head>
+  <div class="welcome-container">
+        {{#if user.first_name}}
+            <h1>Bienvenido<span> {{user.first_name}} {{user.last_name}}!</span></h1>
+            <p>Email: {{user.email}}</p>
+
+            {{#if admin}}
+                <p>Rol: Admin</p>  
+            {{else}}
+                <p>Rol: Usuario</p>
+            {{/if}}
+
+            <a href="/users/logout">Cerrar sesión</a>
+        {{/if}}
+    </div>
+</head>
+
+  
+<section>
+    <form id="cart-form" action="views/carts/{{this._id}}" method="POST">
+     {{#each products}}
+    <p>Nombre del producto: {{this.title}}</p>
+    <p>Descripcion: {{this.description}}</p>
+    <p>Categoria: {{this.category}}</p>
+    <p>Precio: {{this.price}}</p>
+    <p>Stock actual: {{this.stock}}</p>
+   
+
+        <div class="input-group group-comprar">
+            <input type="number" name="cantidad" id="cantidad" class="form-control" value="1" min="1" max="{{productos.stock}}">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-success">Agregar al Carrito</button>
+            </div>
+        </div>
+    </form>
+      {{/each}}
+</section>
+    <script>
+        document.getElementById('cart-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const cantidad = document.getElementById('cantidad').value;
+
+            const formData = new FormData();
+            formData.append('cantidad', cantidad);
+
+            fetch(this.action, {
+                method: this.method,
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Producto agregado al carrito.');
+                } else {
+                    console.error('Error al agregar el producto al carrito.');
+                }
+            })
+            .catch(error => {
+                console.error('Error de red:', error);
+            });
+        });
+    </script>
+
+
+
+<footer class='border-0 border-top border-dark text-center text-dark'>
+  <div class='container p-4 pb-0'>
+    <section>
+      <a target='_blank' class='btn text-white btn-floating m-1' style='background-color: #3b5998;' href='https://www.facebook.com/gonza.martinez.50115161' role='button'><i class='bi bi-facebook'></i></a>
+      <a target='_blank' class='btn text-white btn-floating m-1' style='background-color: #55acee;' href='https://twitter.com/coderhouse' role='button'><i class='bi bi-twitter'></i></a>
+      <a target='_blank' class='btn text-white btn-floating m-1' style='background-color: #ac2bac;' href='https://www.instagram.com/mart_inezgon/' role='button'><i class='bi bi-instagram'></i></a>
+      <a target='_blank' class='btn text-white btn-floating m-1' style='background-color: #0082ca;' href='https://www.linkedin.com/in/gonzalo-martinez-1b5a69263/' role='button'><i
+          class='bi bi-linkedin'
+        ></i></a>
+      <a target='_blank' class='btn text-white btn-floating m-1' style='background-color: #333333;' href='https://github.com/omargonza' role='button'><i class='bi bi-github'></i></a>
+    </section>
+  </div>
+  <div class='text-center p-3 footerInfo'>
+    <h5>2023 Backend Project in CODERHOUSE using NODE.JS and EXPRESS JS</h5>
+    <h6>by Gonza martinez</h6>
+  </div>
+</footer>
+

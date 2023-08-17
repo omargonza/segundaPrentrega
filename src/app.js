@@ -112,7 +112,7 @@ console.log(entorno);
 //requiriendo y configurando express
 import express from "express";
 const app = express();
-const port = entorno.port || 3000;
+const PORT = entorno.PORT || 3000;
 
 
 //session y cookies
@@ -205,8 +205,8 @@ app.get("*", (req, res) => {
 
 //para confirgurar el servidor socket hay que importar el archivo donde se encuentra toda la logica del socket server, luego guardar el servidor http en una variable y por ultimo ejecurtar el "servidor" de socket.io sobre nuestro servidor http
 import { connectSocket } from "./utils/socket-server.js";
-const httpServer = app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+const httpServer = app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 connectSocket(httpServer);
 

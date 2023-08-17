@@ -11,7 +11,7 @@ dotenv.config({
 
 export const entorno = {
   modo: process.argv[2],
-  port: process.env.PORT,
+  PORT: process.env.PORT,
   mongoUrl: process.env.MONGODB_URI,
   adminName: process.env.ADMIN_NAME,
   adminPassword: process.env.ADMIN_PASSWORD,

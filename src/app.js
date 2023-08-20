@@ -169,12 +169,12 @@ app.use(express.json());
 import { routerApiProducts } from "./routes/apis/products-routes.js";
 import { routerApiCarts } from "./routes/apis/carts-routes.js";
 import { routerApiSessions } from "./routes/apis/sessions-routes.js";
-
+import {routerApiMockData} from "./routes/apis/mockdata/mockdata-router.js"
 //endpoint tipo api (crudos en json)
 app.use("/api/products", routerApiProducts);
 app.use("/api/carts", routerApiCarts);
 app.use("/api/sessions", routerApiSessions);
-
+app.use("/api/mockingproducts", routerApiMockData);
 //importando las rutas de los views
 
 //importando las rutas de los views en realtime (servidor socket.io)

@@ -1,134 +1,42 @@
-<!--
 
-<div>
-  {{#if user.first_name}}
-    <h1>Bienvenido<span> {{user.first_name}} {{user.last_name}}!</span></h1>
-    <p>Email: {{user.email}}</p>
+<style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
 
-    {{#if admin}}
-     <p>Rol: Admin</p>  
-    {{else}}
-      <p>Rol: Usuario</p>
-    {{/if}}
+    .welcome-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-    <a href="/users/logout">Cerrar sesión</a>
-  {{/if}}
-</div>
-<hr />
+    section {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-  <main>
-<div class="container text-center index_div">
-    <h1>Todos nuestros Productos</h1>
-</div>
+    .input-group {
+      margin-top: 10px;
+    }
 
- {{#each products}}
-    <p>Nombre del producto: {{this.title}}</p>
-    <p>Descripcion: {{this.description}}</p>
-    <p>Categoria: {{this.category}}</p>
-    <p>Precio: {{this.price}}</p>
-    <p>Stock actual: {{this.stock}}</p>
-
-      <form action="views/carts/{{this._id}}" method="POST">
-                        <div class="input-group group-comprar">
-                            <input type="number" name="cantidad" class="form-control" value="1" min="1"
-                                max={{productos.stock}}>
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-success">Agregar al Carrito</button>
-                            </div>
-                        </div>
-                    </form>
-    <hr />
-  {{/each}}
-</div>
-  <hr />
-<div>
-  Contador del primer producto mostrado: {{pagingCounter}}
-  <br>
-  Pagina actual: {{page}}
-  <br>
-  Numero de paginas: {{totalPages}}
-
-  <hr />
-
-  {{#if hasPrevPage}}
-    <a style='text-decoration: none' href='http://localhost:8082/products/?page={{prevPage}}'> ⬅️ </a>
-  {{/if}}
-  {{page}}
-  {{#if hasNextPage}}
-    <a style='text-decoration: none' href='http://localhost:8082/products/?page={{nextPage}}'> ➡️</a>
-  {{/if}}
-</div>
-</main>
-
-<footer class='border-0 border-top border-dark text-center text-dark'>
-  <div class='container p-4 pb-0'>
-    <section>
-      <a target='_blank' class='btn text-white btn-floating m-1' style='background-color: #3b5998;' href='https://www.facebook.com/gonza.martinez.50115161' role='button'><i class='bi bi-facebook'></i></a>
-      <a target='_blank' class='btn text-white btn-floating m-1' style='background-color: #55acee;' href='https://twitter.com/coderhouse' role='button'><i class='bi bi-twitter'></i></a>
-      <a target='_blank' class='btn text-white btn-floating m-1' style='background-color: #ac2bac;' href='https://www.instagram.com/mart_inezgon/' role='button'><i class='bi bi-instagram'></i></a>
-      <a target='_blank' class='btn text-white btn-floating m-1' style='background-color: #0082ca;' href='https://www.linkedin.com/in/gonzalo-martinez-1b5a69263/' role='button'><i
-          class='bi bi-linkedin'
-        ></i></a>
-      <a target='_blank' class='btn text-white btn-floating m-1' style='background-color: #333333;' href='https://github.com/omargonza' role='button'><i class='bi bi-github'></i></a>
-    </section>
-  </div>
-  <div class='text-center p-3 footerInfo'>
-    <h5>2023 Backend Project in CODERHOUSE using NODE.JS and EXPRESS JS</h5>
-    <h6>by Gonza martinez</h6>
-  </div>
-</footer>
-
--->
-
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-
-        .welcome-container {
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
-        }
-
-        h1 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        h1 span {
-            font-weight: bold;
-        }
-
-        p {
-            font-size: 16px;
-            margin-bottom: 8px;
-        }
-
-        a {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #007bff;
-        }
-    </style>
+    footer {
+      background-color: #f8f9fa;
+      width: 100%;
+      padding: 20px 0;
+      text-align: center;
+    }
+  </style>
 </head>
 
-</html>
 
-
-
-<head>
+<body>
   <div class="welcome-container">
+
         {{#if user.first_name}}
             <h1>Bienvenido<span> {{user.first_name}} {{user.last_name}}!</span></h1>
             <p>Email: {{user.email}}</p>
@@ -146,7 +54,7 @@
 
   
 <section>
-    <form id="cart-form" action="views/carts/{{this._id}}" method="POST">
+    <form id="cart-form" action="/carts/{{this._id}}" method="POST">
      {{#each products}}
     <p>Nombre del producto: {{this.title}}</p>
     <p>Descripcion: {{this.description}}</p>
@@ -158,7 +66,7 @@
         <div class="input-group group-comprar">
             <input type="number" name="cantidad" id="cantidad" class="form-control" value="1" min="1" max="{{productos.stock}}">
             <div class="input-group-append">
-                <button type="submit" class="btn btn-success">Agregar al Carrito</button>
+               <button type="submit" class="btn btn-success" formaction="views/carts/carts-list">Agregar al Carrito</button>
             </div>
         </div>
     </form>

@@ -1,6 +1,7 @@
 // @ts-nocheck
 //importando las funciones de la clase product manager
 import { productsModel}  from "../../DAO/models/products.model.js";
+import {mockdataModel} from "../../DAO/models/mockdata.model.js";
 import {fakerES} from "@faker-js/faker"; 
 class ProductApiService {
   /**
@@ -72,12 +73,12 @@ class ProductApiService {
           description: faker.lorem.sentences(),
           category: fakerES.commerce.department(),
           price: fakerES.commerce.price(),
-          thumbnail: fakerES.image.imageUrl(),
-          code: fakerES.random.alphaNumeric(8),
-          stock: fakerES.random.number({ min: 0, max: 100 }),
+          thumbnail: fakerES.imageUrl(),
+          code: fakerES.alphaNumeric(),
+          stock: fakerES.number({ min: 0, max: 100 }),
         };
   
-        await productsModel.create(fakeProduct);
+        await mockdataModel.create(fakeProduct);
       }
       console.log("Mock data generated successfully!");
     } catch (error) {
